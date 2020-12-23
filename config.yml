@@ -1,0 +1,198 @@
+#=====================#
+#   WMC-Main-Config   #
+#      by Uriang      #
+#=====================#
+# Discord:Khasar#1111 #
+#=====================#
+
+#=====================#
+#   WMC-Random-Spawn  #
+#=====================#
+
+random-spawn:
+    # Main enable for random spawning
+    enabled: true
+
+    # Pre-setup for a 1:500 map
+    minX: -35000
+    maxX: 35000
+    minZ: -17000
+    maxZ: 17000
+    
+    # World which it is to spawn the player in
+    # !Requires server restart to change!
+    world-name: 'world'
+    
+    teleport-mode: 'ground_tp'
+    
+    # 
+    # Teleport-Mode can be 'height_limit_tp' or 'ground_tp'
+    #
+    # Explanations:
+    # 'ground_tp':
+    #      Can only be used if the area selected is pre-generated
+    #      Otherwise it will throw exceptions
+    #
+    # 'height_limit_tp':
+    #      Will apply resistance 100 for 300 ticks to prevent fall damage
+    #      Works if the terrain is not pre-generated
+    #      Didn't really need to be implemented but incase you'd want to use it on
+    #      maps that arent pre-generated
+    #
+    
+    # Safe spawn materials, list at https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+    safe-materials:
+        - GRASS
+        - DIRT
+        - GRASS_BLOCK
+        - RED_SAND
+        - SAND
+        - CLAY
+        - TERRACOTTA
+        - RED_TERRACOTTA
+        - ORANGE_TERRACOTTA
+        - COBBLESTONE
+        - COARSE_DIRT
+        - PODZOL
+    
+    # How many times should it try to find a suited location before failing?
+    try-attempts: 100
+    
+#=====================#
+
+#=====================#
+#  WMC-No-Gold-Drops  #
+#=====================#
+
+no-gold-drops:
+    # Main enable for no gold drops
+    enabled: true
+    
+#=====================#
+
+#=====================#
+#      WMC-No-AI      #
+#=====================#
+
+# All spawn reasons: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/CreatureSpawnEvent.SpawnReason.html
+# All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
+# Follow already layed out pattern
+# Gives the ability to tweak mob AI depending on their spawn reasons
+
+no-ai:
+    # Main enable for no ai with specific spawn types
+    enabled: false
+    mobs:
+        SKELETON:
+            spawn-types:
+                - SPAWNER
+        BLAZE:
+            spawn-types:
+                - SPAWNER
+        SPIDER:
+            spawn-types:
+                - SPAWNER
+        PIG:
+            spawn-types:
+                - SPAWNER
+        GUARDIAN:
+            spawn-types:
+                - SPAWNER
+        ZOMBIE:
+            spawn-types:
+                - SPAWNER
+        BLAZE:
+            spawn-types:
+                - SPAWNER
+            
+#=====================#
+
+#=====================#
+#    WMC-Recipes      #
+#=====================#
+
+recipes:
+    # !Recipes require a server restart to change!
+    # Main enable for recipe tweaker
+    enabled: true
+    
+        # List of tweakables (new recipes at bottom):
+        # CLOCK, POWERED_RAIL, NETHERITE_INGOT
+        # LIGHT_WEIGHTED_PRESSURE_PLATE, 
+        # GLISTERING_MELON_SLICE
+        #
+        # In addition to this you can leave any recipe
+        # here which you'd like to disable,
+        # if you put for example STICK, it will remove the stick recipe
+    tweaked:
+        - CLOCK
+        - POWERED_RAIL
+        
+    # dark-prismarine: 8 prismarine with black dye in center makes 8
+    add-dark-prismarine: true
+    
+    # cobweb: 9 string
+    add-cobweb: true
+    
+    #
+    # CLOCK: tweaked to 4 yellow dye in corners, iron instead of gold
+    # POWERED_RAIL: Iron instead of gold
+    # NETHERITE_INGOT: diamond instead of gold
+    # LIGHT_WEIGHTED_PRESSURE_PLATE: heavy weighted pressure plate + yellow dye
+    # GLISTERING_MELON_SLICE: 8 sugar, 1 melon slice
+    #
+    
+#=====================#
+
+#=====================#
+#    WMC-Spawners     #
+#=====================#
+
+# All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
+# All tools / Materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+
+# THIS REQUIRES NBTAPI RUNNING ON THE SERVER
+# https://www.spigotmc.org/resources/nbt-api.7939/
+
+spawners:
+    # Main enable for spawners
+    enabled: true
+    
+    # What tools can mine spawners with silk touch?
+    allowed-tools:
+        - DIAMOND_PICKAXE
+        - NETHERITE_PICKAXE
+    
+    # Should it delete all non legal spawners
+    delete-illegals: true
+    
+    # Stop illegals from spawning from spawners
+    prevent-illegal-spawns: true
+    
+    # Should admins be notified about spawners being placed?
+    # Permission required: wmc.notifyspawners
+    notify-when-placed: false
+    
+    # Should breaking an illegal spawner be rewarded?
+    reward-breaking-illegals: false
+    # What does it give in return for deleting it? (raw XP)
+    reward-amount: 300
+        
+    # Do you wish to prevent spawners from exploding?
+    cancel-explosion: true
+    
+    # Should the spawner be placed in the user's inventory automatically
+    place-spawner-in-inventory: false
+    
+    # List of legal mob spawns
+    legals:
+        - PIG
+        - SHEEP
+        - CHICKEN
+        - COW
+        - BLAZE
+        - ZOMBIE
+        - SKELETON
+        - SPIDER
+        - GUARDIAN
+        
