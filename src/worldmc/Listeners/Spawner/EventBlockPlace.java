@@ -22,6 +22,8 @@ public class EventBlockPlace implements Listener {
 		this.plugin = plugin;
 	}
 
+	// Insert the right mob into spawners when placed
+	
 	@EventHandler
 	public void onBlockPlaceEvent(BlockPlaceEvent event) {
 		Block b = event.getBlock();
@@ -32,11 +34,9 @@ public class EventBlockPlace implements Listener {
 				ItemStack item = event.getItemInHand();
 				NBTItem nbti = new NBTItem(item);
 				String mobType = nbti.getString("wmc_spawn_type");
-				if (mobType != "") {
-					cs.setSpawnedType(EntityType.valueOf(mobType));
-				} else {
-					cs.setSpawnedType(EntityType.PIG);
-				}
+				if (mobType != "") cs.setSpawnedType(EntityType.valueOf(mobType));
+				else cs.setSpawnedType(EntityType.PIG);
+				cs.update();
 				if (plugin.getConfig().getBoolean("spawners.notify-when-placed")) {
 					plugin.getServer().broadcast(
 							ChatColor.YELLOW + "[WMC-Spawners] " + p + " Just placed a " + mobType + " Spawner",

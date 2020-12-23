@@ -4,6 +4,8 @@ import java.util.List;
 
 public class UsefulFunctions {
 
+	// Place where i put a few useful things to shorten overall code
+	
 	public static boolean matchesStringList(String toMatch, String configListLocation) {
 		List<String> matchlist = WMC.plugin.getConfig().getStringList(configListLocation);
 

@@ -16,6 +16,8 @@ public class EventSpawnMobMethod implements Listener {
 		this.plugin = plugin;
 	}
 
+	// Disable AI if a condition is met in the config
+	
 	@EventHandler
 	public void onMobSpawn(CreatureSpawnEvent event) {
 		if (plugin.getConfig().getBoolean("no-ai.enabled")) {

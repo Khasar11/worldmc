@@ -16,7 +16,9 @@ public class EventSpawnerSpawn implements Listener {
 	public EventSpawnerSpawn(WMC plugin) {
 		this.plugin = plugin;
 	}
-
+	
+	// Disable illegal spawners from spawning mobs
+	
 	@EventHandler
 	public void onMobSpawn(CreatureSpawnEvent event) {
 		if (plugin.getConfig().getBoolean("spawners.enabled")) {

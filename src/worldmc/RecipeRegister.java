@@ -13,6 +13,8 @@ import org.bukkit.inventory.ShapelessRecipe;
 
 public class RecipeRegister {
 
+	// Register/Deregister all recipes if enabled
+	
 	public static void RegisterRecipes() {
 
 		List<String> tweaked = WMC.plugin.getConfig().getStringList("recipes.tweaked");

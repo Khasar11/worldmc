@@ -32,6 +32,8 @@ public class EventRandomSpawn implements Listener {
 	World world = Bukkit.getServer().getWorld(WMC.plugin.Config.getString("random-spawn.world-name"));
 	Boolean townyEnabled = WMC.plugin.getServer().getPluginManager().isPluginEnabled("Towny");
 
+	// Randomly spawn the user if their town (if towny is installed) and bed spawn are not set
+	
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		if (plugin.getConfig().getBoolean("random-spawn.enabled")) {
@@ -70,7 +72,9 @@ public class EventRandomSpawn implements Listener {
 			}
 		}
 	}
-
+	
+	// Randomly spawn on first join
+	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if (plugin.getConfig().getBoolean("random-spawn.enabled")) {

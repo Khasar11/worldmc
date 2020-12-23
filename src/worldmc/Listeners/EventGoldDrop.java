@@ -17,6 +17,8 @@ public class EventGoldDrop implements Listener {
 		this.plugin = plugin;
 	}
 
+	// Remove gold drops
+	
 	@EventHandler
 	public void onDeath(EntityDeathEvent event) {
 		if (plugin.getConfig().getBoolean("no-gold-drops.enabled")) {

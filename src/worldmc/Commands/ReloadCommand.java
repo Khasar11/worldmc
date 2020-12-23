@@ -15,6 +15,8 @@ public class ReloadCommand implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
+	// Simple reload command
+	
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
 		if (commandSender.hasPermission("wmc.reload")) {
