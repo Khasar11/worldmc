@@ -103,18 +103,16 @@ public class EventRandomSpawn implements Listener {
 
 	public Location getRandomSafeLocation(Player p) {
 		int minX = plugin.getConfig().getInt("random-spawn.minX"),
-			maxX = plugin.getConfig().getInt("random-spawn.maxX"),
-			minZ = plugin.getConfig().getInt("random-spawn.minZ"),
-			maxZ = plugin.getConfig().getInt("random-spawn.maxZ"), 
-			x = minX + rand.nextInt((maxX - minX) + 1),
-			z = minZ + rand.nextInt((maxZ - minZ) + 1), 
-			y = world.getHighestBlockAt(x, z).getY();
-		
+				maxX = plugin.getConfig().getInt("random-spawn.maxX"),
+				minZ = plugin.getConfig().getInt("random-spawn.minZ"),
+				maxZ = plugin.getConfig().getInt("random-spawn.maxZ"), x = minX + rand.nextInt((maxX - minX) + 1),
+				z = minZ + rand.nextInt((maxZ - minZ) + 1), y = world.getHighestBlockAt(x, z).getY();
+
 		Location loc = new Location(world, x, y, z);
 		Material mat = loc.getBlock().getType();
 		int i = 0;
-		
-		while (!UsefulFunctions.matchesStringList(mat.toString(), "random-spawn.safe-materials") 
+
+		while (!UsefulFunctions.matchesStringList(mat.toString(), "random-spawn.safe-materials")
 				&& plugin.getConfig().getString("random-spawn.teleport-mode").contains("ground_tp")) {
 			loc = getRandomSafeLocation(p);
 			mat = loc.getBlock().getType();
@@ -124,7 +122,7 @@ public class EventRandomSpawn implements Listener {
 						+ " times, Unsafe Location, using default");
 				return null;
 			}
-		} 
+		}
 		return loc;
 	}
 }

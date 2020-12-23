@@ -70,7 +70,7 @@ public class EventBlockBreak implements Listener {
 						}
 					}
 					return;
-				} 
+				}
 			}
 			p.sendMessage(ChatColor.GREEN + "Illegal tool used");
 			event.setCancelled(true);
