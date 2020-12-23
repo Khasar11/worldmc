@@ -15,7 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import de.tr7zw.nbtapi.NBTItem;
 import net.md_5.bungee.api.ChatColor;
-import worldmc.UsefulFunctions;
+import worldmc.Utils;
 import worldmc.WMC;
 import worldmc.InvHelper;
 
@@ -48,8 +48,8 @@ public class EventBlockBreak implements Listener {
 				if (plugin.getConfig().getBoolean("spawners.enabled")
 						&& ptool.containsEnchantment(Enchantment.SILK_TOUCH)) {
 					event.setExpToDrop(0);
-					if (UsefulFunctions.matchesStringList(ptool.getType().toString(), "spawners.allowed-tools")) {
-						if (UsefulFunctions.matchesStringList(entity.name(), "spawners.legals")) {
+					if (Utils.matchesStringList(ptool.getType().toString(), "spawners.allowed-tools")) {
+						if (Utils.matchesStringList(entity.name(), "spawners.legals")) {
 
 							nbti = new NBTItem(newItem);
 							nbti.setString("wmc_spawn_type", entity.name());

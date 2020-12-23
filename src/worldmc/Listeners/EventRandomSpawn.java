@@ -16,7 +16,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.palmergames.bukkit.towny.TownyAPI;
 
-import worldmc.UsefulFunctions;
+import worldmc.Utils;
 import worldmc.WMC;
 
 public class EventRandomSpawn implements Listener {
@@ -116,7 +116,7 @@ public class EventRandomSpawn implements Listener {
 		Material mat = loc.getBlock().getType();
 		int i = 0;
 
-		while (!UsefulFunctions.matchesStringList(mat.toString(), "random-spawn.safe-materials")
+		while (!Utils.matchesStringList(mat.toString(), "random-spawn.safe-materials")
 				&& plugin.getConfig().getString("random-spawn.teleport-mode").contains("ground_tp")) {
 			loc = getRandomSafeLocation(p);
 			mat = loc.getBlock().getType();

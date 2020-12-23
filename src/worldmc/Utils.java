@@ -2,7 +2,7 @@ package worldmc;
 
 import java.util.List;
 
-public class UsefulFunctions {
+public class Utils {
 
 	// Place where i put a few useful things to shorten overall code
 	
