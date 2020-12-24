@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import de.tr7zw.nbtapi.NBTItem;
 import net.md_5.bungee.api.ChatColor;
+import worldmc.Utils;
 import worldmc.WMC;
 
 public class EventBlockPlace implements Listener {
@@ -23,7 +24,7 @@ public class EventBlockPlace implements Listener {
 	}
 
 	// Insert the right mob into spawners when placed
-	
+
 	@EventHandler
 	public void onBlockPlaceEvent(BlockPlaceEvent event) {
 		Block b = event.getBlock();
@@ -34,8 +35,17 @@ public class EventBlockPlace implements Listener {
 				ItemStack item = event.getItemInHand();
 				NBTItem nbti = new NBTItem(item);
 				String mobType = nbti.getString("wmc_spawn_type");
-				if (mobType != "") cs.setSpawnedType(EntityType.valueOf(mobType));
-				else cs.setSpawnedType(EntityType.PIG);
+				if (mobType != "")
+					cs.setSpawnedType(EntityType.valueOf(mobType));
+				else
+					cs.setSpawnedType(EntityType.PIG);
+				if (!Utils.matchesStringList(mobType, "spawners.legals")) {
+					if (plugin.getConfig().getBoolean("spawners.prevent-illegal-placement")) {
+						p.sendMessage(ChatColor.YELLOW + "Illegal spawner placed, please contact staff");
+						event.setCancelled(true);
+						return;
+					}
+				}
 				cs.update();
 				if (plugin.getConfig().getBoolean("spawners.notify-when-placed")) {
 					plugin.getServer().broadcast(

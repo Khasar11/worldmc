@@ -169,6 +169,9 @@ spawners:
     # Stop illegals from spawning from spawners
     prevent-illegal-spawns: true
     
+    # Prevent illegal spawners placement
+    prevent-illegal-placement: true
+    
     # Should admins be notified about spawners being placed?
     # Permission required: wmc.notifyspawners
     notify-when-placed: false
