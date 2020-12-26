@@ -189,6 +189,7 @@ spawners:
     allowed-tools:
         - DIAMOND_PICKAXE
         - NETHERITE_PICKAXE
+        - IRON_PICKAXE
     
     # Should it delete all non legal spawners
     delete-illegals: true
