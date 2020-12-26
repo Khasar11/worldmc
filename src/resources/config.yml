@@ -95,7 +95,7 @@ no-gold-drops:
 #      WMC-No-AI      #
 #=====================#
 
-# Removes AI from mobs spawned with a certain criteria
+# Removes entities ability to target players spawned meeting a criteria
 
 # All spawn reasons: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/CreatureSpawnEvent.SpawnReason.html
 # All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
@@ -104,7 +104,7 @@ no-gold-drops:
 
 no-ai:
     # Main enable for no ai with specific spawn types
-    enabled: false
+    enabled: true
     mobs:
         SKELETON:
             spawn-types:

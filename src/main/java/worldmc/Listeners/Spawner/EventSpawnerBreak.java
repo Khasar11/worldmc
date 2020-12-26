@@ -37,7 +37,8 @@ public class EventSpawnerBreak implements Listener {
 		if (b.getType() == Material.SPAWNER) {
 			if (p.getGameMode() != GameMode.CREATIVE) {
 				CreatureSpawner cs = (CreatureSpawner) b.getState();
-				ItemStack ptool = InvHelper.getMainItem(p), newItem = new ItemStack(Material.SPAWNER, 1);
+				ItemStack ptool = InvHelper.getMainItem(p), 
+						  newItem = new ItemStack(Material.SPAWNER, 1);
 				if (plugin.getConfig().getBoolean("spawners.enabled")
 						&& ptool.containsEnchantment(Enchantment.SILK_TOUCH)) {
 					EntityType entity = cs.getSpawnedType();
