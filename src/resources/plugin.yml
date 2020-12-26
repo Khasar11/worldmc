@@ -1,0 +1,15 @@
+main: main.java.worldmc.WMC
+name: WorldMC-Main
+version: '2.1'
+description: Does all the things
+author: Uriyang
+website: https://www.worldmc.net/home
+api-version: 1.16
+load: POSTWORLD
+softdepend: [Towny, NBTAPI]
+commands:
+  wmcreload:
+   description: Reload the configuration
+   permission: wmc.reload
+   permission-message: No permission
+   usage: /<command>
