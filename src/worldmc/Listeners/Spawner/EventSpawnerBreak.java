@@ -1,5 +1,7 @@
 package worldmc.Listeners.Spawner;
 
+import java.util.ArrayList;
+
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,15 +17,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import de.tr7zw.nbtapi.NBTItem;
 import net.md_5.bungee.api.ChatColor;
-import worldmc.Utils;
 import worldmc.WMC;
 import worldmc.InvHelper;
 
-public class EventBlockBreak implements Listener {
+public class EventSpawnerBreak implements Listener {
 
 	private WMC plugin;
 
-	public EventBlockBreak(WMC plugin) {
+	public EventSpawnerBreak(WMC plugin) {
 		this.plugin = plugin;
 	}
 
@@ -36,20 +37,24 @@ public class EventBlockBreak implements Listener {
 		if (b.getType() == Material.SPAWNER) {
 			if (p.getGameMode() != GameMode.CREATIVE) {
 				CreatureSpawner cs = (CreatureSpawner) b.getState();
-				EntityType entity = cs.getSpawnedType();
 				ItemStack ptool = InvHelper.getMainItem(p), newItem = new ItemStack(Material.SPAWNER, 1);
-				ItemMeta meta = newItem.getItemMeta();
-				String entityName = entity.name();
-				entityName.replace("_", " ");
-				meta.setDisplayName(ChatColor.GREEN + entityName + " SPAWNER");
-				newItem.setItemMeta(meta);
-				NBTItem nbti;
-
 				if (plugin.getConfig().getBoolean("spawners.enabled")
 						&& ptool.containsEnchantment(Enchantment.SILK_TOUCH)) {
+					EntityType entity = cs.getSpawnedType();
+					ItemMeta meta = newItem.getItemMeta();
+					String entityName = entity.name();
+					entityName.replace("_", " ");
+					meta.setDisplayName(ChatColor.GREEN + entityName + " SPAWNER");
+					newItem.setItemMeta(meta);
+					NBTItem nbti;
 					event.setExpToDrop(0);
-					if (Utils.matchesStringList(ptool.getType().toString(), "spawners.allowed-tools")) {
-						if (Utils.matchesStringList(entity.name(), "spawners.legals")) {
+					ArrayList<String> allowedTools = new ArrayList<String>(
+							plugin.getConfig().getStringList("spawners.allowed-tools"));
+					ArrayList<String> legals = new ArrayList<String>(
+							plugin.getConfig().getStringList("spawners.legals"));
+
+					if (allowedTools.contains(ptool.getType().toString())) {
+						if (legals.contains(entity.name())) {
 
 							nbti = new NBTItem(newItem);
 							nbti.setString("wmc_spawn_type", entity.name());

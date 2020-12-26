@@ -1,5 +1,6 @@
 package worldmc.Listeners;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -16,7 +17,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.palmergames.bukkit.towny.TownyAPI;
 
-import worldmc.Utils;
 import worldmc.WMC;
 
 public class EventRandomSpawn implements Listener {
@@ -28,18 +28,22 @@ public class EventRandomSpawn implements Listener {
 	}
 
 	Random rand = new Random();
-	String failString = "Tried to teleport but an error occured potentially chunk generation related";
 	World world = Bukkit.getServer().getWorld(WMC.plugin.Config.getString("random-spawn.world-name"));
 	Boolean townyEnabled = WMC.plugin.getServer().getPluginManager().isPluginEnabled("Towny");
 
-	// Randomly spawn the user if their town (if towny is installed) and bed spawn are not set
-	
+	// Randomly spawn the user if their town (if towny is installed) and bed spawn
+	// are not set
+
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		if (plugin.getConfig().getBoolean("random-spawn.enabled")) {
 			Player p = event.getPlayer();
 			if (p.getBedSpawnLocation() == null) {
-				Location tSpawnLoc, loc = getRandomSafeLocation(p);
+				String TPMode = plugin.getConfig().getString("random-spawn.teleport-mode");
+				ArrayList<String> safeMats = new ArrayList<String>(
+						plugin.getConfig().getStringList("random-spawn.safe-materials"));
+				Location tSpawnLoc, loc = getRandomSafeLocation(p, safeMats, TPMode,
+						plugin.getConfig().getInt("random-spawn.try-attempts"));
 				;
 				if (townyEnabled) {
 					tSpawnLoc = TownyAPI.getInstance().getTownSpawnLocation(p);
@@ -47,65 +51,52 @@ public class EventRandomSpawn implements Listener {
 					tSpawnLoc = null;
 				}
 				if (tSpawnLoc == null) {
-					switch (plugin.getConfig().getString("random-spawn.teleport-mode")) {
-					case "ground_tp": {
-						try {
-							loc.add(0, 1, 0);
-							event.setRespawnLocation(loc);
-						} catch (Exception e) {
-							System.out.println("[WMC-RTP] " + failString);
-							System.out.println(e);
-						}
-						break;
+					if (TPMode.contains("ground_tp")) {
+						loc.add(0, 1, 0);
+						event.setRespawnLocation(loc);
+						return;
 					}
-					default: {
-						event.setRespawnLocation(new Location(world, loc.getX(), 255, loc.getZ()));
-						Bukkit.getScheduler().runTaskLater(plugin, () -> {
-							p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 100));
-						}, 3L);
-						break;
-					}
-					}
+					event.setRespawnLocation(new Location(world, loc.getX(), 255, loc.getZ()));
+					Bukkit.getScheduler().runTaskLater(plugin, () -> {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 100));
+					}, 3L);
 				} else {
 					event.setRespawnLocation(tSpawnLoc);
 				}
 			}
 		}
 	}
-	
+
 	// Randomly spawn on first join
-	
+
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if (plugin.getConfig().getBoolean("random-spawn.enabled")) {
 			Player p = event.getPlayer();
 			if (!p.hasPlayedBefore()) {
-				Location loc = getRandomSafeLocation(p);
+				String TPMode = plugin.getConfig().getString("random-spawn.teleport-mode");
+				ArrayList<String> safeMats = new ArrayList<String>(
+						plugin.getConfig().getStringList("random-spawn.safe-materials"));
+				Location loc = getRandomSafeLocation(p, safeMats, TPMode,
+						plugin.getConfig().getInt("random-spawn.try-attempts"));
 
-				switch (plugin.getConfig().getString("random-spawn.teleport-mode")) {
-				case "ground_tp": {
-					try {
+				if (TPMode.contains("ground_tp")) {
+					Bukkit.getScheduler().runTaskLater(plugin, () -> {
 						loc.add(0, 1, 0);
 						p.teleport(loc);
-					} catch (Exception e) {
-						System.out.println("[WMC-RTP] " + failString);
-						System.out.println(e);
-					}
-					break;
-				}
-				default: {
-					p.teleport(new Location(world, loc.getX(), 255, loc.getZ()));
-					Bukkit.getScheduler().runTaskLater(plugin, () -> {
-						p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 100));
 					}, 3L);
-					break;
+					return;
 				}
-				}
+
+				p.teleport(new Location(world, loc.getX(), 255, loc.getZ()));
+				Bukkit.getScheduler().runTaskLater(plugin, () -> {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 100));
+				}, 3L);
 			}
 		}
 	}
 
-	public Location getRandomSafeLocation(Player p) {
+	public Location getRandomSafeLocation(Player p, ArrayList<String> safeMats, String TPMode, int tryAttempts) {
 		int minX = plugin.getConfig().getInt("random-spawn.minX"),
 				maxX = plugin.getConfig().getInt("random-spawn.maxX"),
 				minZ = plugin.getConfig().getInt("random-spawn.minZ"),
@@ -115,16 +106,16 @@ public class EventRandomSpawn implements Listener {
 		Location loc = new Location(world, x, y, z);
 		Material mat = loc.getBlock().getType();
 		int i = 0;
-
-		while (!Utils.matchesStringList(mat.toString(), "random-spawn.safe-materials")
-				&& plugin.getConfig().getString("random-spawn.teleport-mode").contains("ground_tp")) {
-			loc = getRandomSafeLocation(p);
-			mat = loc.getBlock().getType();
-			i++;
-			if (i > plugin.getConfig().getInt("random-spawn.try-attempts")) {
-				System.out.println("[WMC-RTP] Failed RTP " + plugin.getConfig().getInt("try-attempts")
-						+ " times, Unsafe Location, using default");
-				return null;
+		if (TPMode.contains("ground_tp")) {
+			while (!safeMats.contains(mat.toString())) {
+				loc = getRandomSafeLocation(p, safeMats, TPMode, tryAttempts);
+				mat = loc.getBlock().getType();
+				i++;
+				if (i > tryAttempts) {
+					System.out.println("[WMC-RTP] Failed RTP " + plugin.getConfig().getInt("try-attempts")
+							+ " times, Unsafe Location, using default");
+					return null;
+				}
 			}
 		}
 		return loc;

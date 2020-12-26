@@ -1,8 +1,6 @@
 package worldmc.Listeners;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Drowned;
-import org.bukkit.entity.PigZombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -18,14 +16,14 @@ public class EventGoldDrop implements Listener {
 	}
 
 	// Remove gold drops
-	
+
 	@EventHandler
 	public void onDeath(EntityDeathEvent event) {
 		if (plugin.getConfig().getBoolean("no-gold-drops.enabled")) {
-			if (!(event.getEntity() instanceof PigZombie) && !(event.getEntity() instanceof Drowned)) {
+			if (!plugin.getConfig().getStringList("no-gold-drops.entities").contains(event.getEntity().getType().toString())) {
 				return;
 			}
-
+			
 			for (int i = 0; i < event.getDrops().size(); i++) {
 				if (event.getDrops().get(i).getType().equals(Material.GOLD_INGOT)
 						|| event.getDrops().get(i).getType().equals(Material.GOLD_NUGGET)

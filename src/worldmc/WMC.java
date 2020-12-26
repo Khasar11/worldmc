@@ -1,24 +1,27 @@
 package worldmc;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import worldmc.Commands.ReloadCommand;
-import worldmc.Listeners.EventGoldDrop;
-import worldmc.Listeners.EventSpawnMobMethod;
-import worldmc.Listeners.EventRandomSpawn;
-import worldmc.Listeners.Spawner.EventBlockBreak;
-import worldmc.Listeners.Spawner.EventBlockPlace;
-import worldmc.Listeners.Spawner.EventSpawnerExplode;
-import worldmc.Listeners.Spawner.EventSpawnerSpawn;
+import worldmc.Listeners.*;
+import worldmc.Listeners.Spawner.*;
+import worldmc.Listeners.Welcome.*;
 
 public class WMC extends JavaPlugin {
 
 	public FileConfiguration Config = getConfig();
 
 	public static WMC plugin;
-
+	
+	// Welcome reward player list
+	public Player toWelcome = null; 
+	public ArrayList<Player> welcomed = new ArrayList<>();
+	
 	@Override
 	public void onDisable() {
 		plugin = null;
@@ -36,10 +39,13 @@ public class WMC extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new EventRandomSpawn(this), this);
 		Bukkit.getPluginManager().registerEvents(new EventGoldDrop(this), this);
 		Bukkit.getPluginManager().registerEvents(new EventSpawnMobMethod(this), this);
-		Bukkit.getPluginManager().registerEvents(new EventBlockPlace(this), this);
-		Bukkit.getPluginManager().registerEvents(new EventBlockBreak(this), this);
+		Bukkit.getPluginManager().registerEvents(new EventSpawnerPlace(this), this);
+		Bukkit.getPluginManager().registerEvents(new EventSpawnerBreak(this), this);
 		Bukkit.getPluginManager().registerEvents(new EventSpawnerExplode(this), this);
 		Bukkit.getPluginManager().registerEvents(new EventSpawnerSpawn(this), this);
+		Bukkit.getPluginManager().registerEvents(new EventPlayerChat(this), this);
+		Bukkit.getPluginManager().registerEvents(new EventPlayerQuit(this), this);
+		Bukkit.getPluginManager().registerEvents(new EventPlayerFirstJoin(this), this);
 
 		// Register command
 		getCommand("wmcreload").setExecutor(new ReloadCommand(this));

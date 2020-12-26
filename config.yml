@@ -5,9 +5,21 @@
 # Discord:Khasar#1111 #
 #=====================#
 
+# Feature list:
+#   Random-Spawn
+#   No-Gold-Drops
+#   No-AI from mobs spawned who meet a criteria
+#   Recipe tweaking
+#   Silk touch spawners
+#   Welcome rewards
+
 #=====================#
 #   WMC-Random-Spawn  #
 #=====================#
+
+# Random teleport on death and first join
+# Will not teleport if bed spawn 
+# Or town spawn is set if towny is installed
 
 random-spawn:
     # Main enable for random spawning
@@ -64,15 +76,26 @@ random-spawn:
 #  WMC-No-Gold-Drops  #
 #=====================#
 
+# Remove gold drops from mobs
+
+# All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
+
 no-gold-drops:
     # Main enable for no gold drops
     enabled: true
+    
+    # What entities should it remove from
+    entities:
+        - 'ZOMBIFIED_PIGLIN'
+        - 'DROWNED'
     
 #=====================#
 
 #=====================#
 #      WMC-No-AI      #
 #=====================#
+
+# Removes AI from mobs spawned with a certain criteria
 
 # All spawn reasons: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/CreatureSpawnEvent.SpawnReason.html
 # All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
@@ -111,6 +134,8 @@ no-ai:
 #    WMC-Recipes      #
 #=====================#
 
+# Recipe modifications
+
 recipes:
     # !Recipes require a server restart to change!
     # Main enable for recipe tweaker
@@ -147,6 +172,8 @@ recipes:
 #=====================#
 #    WMC-Spawners     #
 #=====================#
+
+# Silk spawners
 
 # All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
 # All tools / Materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
@@ -198,4 +225,32 @@ spawners:
         - SKELETON
         - SPIDER
         - GUARDIAN
+
+#=====================#
+
+#=====================#
+#     WMC-Welcome     #
+#=====================#
+
+# Used to reward players that are nice and welcome players
+
+# {USERNAME} for username in commands
+
+welcome:
+    # Main enable for welcome rewards
+    enabled: true
+    
+    # What commands should it execute, follow the layout below
+    reward-commands:
+        - 'give {USERNAME} gold_ingot 2'
         
+    # How long should they be able to say it for (in seconds)
+    reward-time: 10
+    
+    # What words can be said
+    # Will automatically be forced to lower case and symbols will be removed
+    message: 'welcome'
+    
+#=====================#
+
+     

@@ -1,12 +1,13 @@
 package worldmc.Listeners.Spawner;
 
+import java.util.ArrayList;
+
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
-import worldmc.Utils;
 import worldmc.WMC;
 
 public class EventSpawnerSpawn implements Listener {
@@ -23,7 +24,9 @@ public class EventSpawnerSpawn implements Listener {
 	public void onMobSpawn(CreatureSpawnEvent event) {
 		if (plugin.getConfig().getBoolean("spawners.enabled")) {
 			EntityType e = event.getEntityType();
-			if (!Utils.matchesStringList(e.toString(), "spawners.legals")) {
+			ArrayList<String> legals = new ArrayList<String>(
+					plugin.getConfig().getStringList("spawners.legals"));
+			if (!legals.contains(e.toString())) {
 				if (event.getSpawnReason() == SpawnReason.SPAWNER) {
 					event.setCancelled(true);
 				}

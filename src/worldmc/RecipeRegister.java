@@ -85,7 +85,7 @@ public class RecipeRegister {
 		}
 		if (WMC.plugin.getConfig().getBoolean("recipes.add-cobweb")) {
 			final ShapelessRecipe cobweb = new ShapelessRecipe(new NamespacedKey(WMC.plugin, "wmc_cobweb"),
-					new ItemStack(Material.DARK_PRISMARINE, 8));
+					new ItemStack(Material.COBWEB, 1));
 			cobweb.addIngredient(9, Material.STRING);
 			Bukkit.addRecipe(cobweb);
 			tweakedRecipes++;
