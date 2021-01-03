@@ -6,10 +6,14 @@ author: Uriyang
 website: https://www.worldmc.net/home
 api-version: 1.16
 load: POSTWORLD
-softdepend: [Towny, NBTAPI]
 commands:
   wmcreload:
    description: Reload the configuration
    permission: wmc.reload
    permission-message: No permission
    usage: /<command>
+  wmcgivespawner:
+   description: Give a spawner
+   permission: wmc.givespawner
+   permission-message: No permission
+   usage: /<command> (player) (type) [<amount>]

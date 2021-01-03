@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import main.java.worldmc.Commands.ReloadCommand;
+import main.java.worldmc.Commands.*;
 import main.java.worldmc.Listeners.*;
 import main.java.worldmc.Listeners.Spawner.*;
 import main.java.worldmc.Listeners.Welcome.*;
@@ -48,7 +48,8 @@ public class WMC extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new EventPlayerFirstJoin(this), this);
 
 		// Register command
-		getCommand("wmcreload").setExecutor(new ReloadCommand(this));
+		getCommand("wmcreload").setExecutor(new CmdReload(this));
+		getCommand("wmcgivespawner").setExecutor(new CmdSpawnerGive(this));
 
 		// Register all recipes
 		if (getConfig().getBoolean("recipes.enabled")) {

@@ -8,7 +8,7 @@
 # Feature list:
 #   Random-Spawn
 #   No-Gold-Drops
-#   No-AI from mobs spawned who meet a criteria
+#   Remove mobs pathfinding and targetting based on criteria
 #   Recipe tweaking
 #   Silk touch spawners
 #   Welcome rewards
@@ -230,7 +230,7 @@ spawners:
 #=====================#
 
 #=====================#
-#     WMC-Welcome     #
+#    WMC-First-Join   #
 #=====================#
 
 # Used to reward players that are nice and welcome players
@@ -253,5 +253,3 @@ welcome:
     message: 'welcome'
     
 #=====================#
-
-     

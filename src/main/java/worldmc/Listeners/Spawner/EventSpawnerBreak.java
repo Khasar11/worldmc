@@ -45,7 +45,9 @@ public class EventSpawnerBreak implements Listener {
 					ItemMeta meta = newItem.getItemMeta();
 					String entityName = entity.name();
 					entityName.replace("_", " ");
-					meta.setDisplayName(ChatColor.GREEN + entityName + " SPAWNER");
+					String dName = ChatColor.GREEN + entityName.substring(0, 1);
+					dName = dName + entityName.substring(1).toLowerCase() + " Spawner";
+					meta.setDisplayName(dName);
 					newItem.setItemMeta(meta);
 					NBTItem nbti;
 					event.setExpToDrop(0);

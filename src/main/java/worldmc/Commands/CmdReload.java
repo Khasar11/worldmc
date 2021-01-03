@@ -7,11 +7,11 @@ import org.bukkit.command.CommandSender;
 
 import main.java.worldmc.WMC;
 
-public class ReloadCommand implements CommandExecutor {
+public class CmdReload implements CommandExecutor {
 
 	private WMC plugin;
 
-	public ReloadCommand(WMC plugin) {
+	public CmdReload(WMC plugin) {
 		this.plugin = plugin;
 	}
 

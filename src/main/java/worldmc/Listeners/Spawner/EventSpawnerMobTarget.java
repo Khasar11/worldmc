@@ -1,4 +1,4 @@
-package main.java.worldmc.Listeners;
+package main.java.worldmc.Listeners.Spawner;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -21,7 +21,7 @@ public class EventSpawnerMobTarget implements Listener {
 	// Disable targetting if a condition is met in the config
 
 	@EventHandler
-	public void target(EntityTargetLivingEntityEvent event) {
+	public void onEntityTarget(EntityTargetLivingEntityEvent event) {
 		if (plugin.getConfig().getBoolean("no-ai.enabled")) {
 			Entity entity = event.getEntity();
 			NBTEntity nbtent = new NBTEntity(entity);
