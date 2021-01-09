@@ -74,50 +74,59 @@ public class EventRandomSpawn implements Listener {
 		if (plugin.getConfig().getBoolean("random-spawn.enabled")) {
 			Player p = event.getPlayer();
 			if (!p.hasPlayedBefore()) {
-				String TPMode = plugin.getConfig().getString("random-spawn.teleport-mode");
-				ArrayList<String> safeMats = new ArrayList<String>(
-						plugin.getConfig().getStringList("random-spawn.safe-materials"));
-				Location loc = getRandomSafeLocation(p, safeMats, TPMode,
-						plugin.getConfig().getInt("random-spawn.try-attempts"));
+				try {
+					String TPMode = plugin.getConfig().getString("random-spawn.teleport-mode");
+					ArrayList<String> safeMats = new ArrayList<String>(
+							plugin.getConfig().getStringList("random-spawn.safe-materials"));
+					Location loc = getRandomSafeLocation(p, safeMats, TPMode,
+							plugin.getConfig().getInt("random-spawn.try-attempts"));
 
-				if (TPMode.contains("ground_tp")) {
+					if (TPMode.contains("ground_tp")) {
+						Bukkit.getScheduler().runTaskLater(plugin, () -> {
+							loc.add(0, 1, 0);
+							p.teleport(loc);
+						}, 3L);
+						return;
+					}
+
+					p.teleport(new Location(world, loc.getX(), 255, loc.getZ()));
 					Bukkit.getScheduler().runTaskLater(plugin, () -> {
-						loc.add(0, 1, 0);
-						p.teleport(loc);
+						p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 100));
 					}, 3L);
-					return;
+				} catch (Exception print) {
+					System.out.println("A generational issue caused random spawn not to work");
 				}
-
-				p.teleport(new Location(world, loc.getX(), 255, loc.getZ()));
-				Bukkit.getScheduler().runTaskLater(plugin, () -> {
-					p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 100));
-				}, 3L);
 			}
 		}
 	}
 
 	public Location getRandomSafeLocation(Player p, ArrayList<String> safeMats, String TPMode, int tryAttempts) {
-		int minX = plugin.getConfig().getInt("random-spawn.minX"),
-				maxX = plugin.getConfig().getInt("random-spawn.maxX"),
-				minZ = plugin.getConfig().getInt("random-spawn.minZ"),
-				maxZ = plugin.getConfig().getInt("random-spawn.maxZ"), x = minX + rand.nextInt((maxX - minX) + 1),
-				z = minZ + rand.nextInt((maxZ - minZ) + 1), y = world.getHighestBlockAt(x, z).getY();
+		try {
+			int minX = plugin.getConfig().getInt("random-spawn.minX"),
+					maxX = plugin.getConfig().getInt("random-spawn.maxX"),
+					minZ = plugin.getConfig().getInt("random-spawn.minZ"),
+					maxZ = plugin.getConfig().getInt("random-spawn.maxZ"), x = minX + rand.nextInt((maxX - minX) + 1),
+					z = minZ + rand.nextInt((maxZ - minZ) + 1), y = world.getHighestBlockAt(x, z).getY();
 
-		Location loc = new Location(world, x, y, z);
-		Material mat = loc.getBlock().getType();
-		int i = 0;
-		if (TPMode.contains("ground_tp")) {
-			while (!safeMats.contains(mat.toString())) {
-				loc = getRandomSafeLocation(p, safeMats, TPMode, tryAttempts);
-				mat = loc.getBlock().getType();
-				i++;
-				if (i > tryAttempts) {
-					System.out.println("[WMC-RTP] Failed RTP " + plugin.getConfig().getInt("try-attempts")
-							+ " times, Unsafe Location, using default");
-					return null;
+			Location loc = new Location(world, x, y, z);
+			Material mat = loc.getBlock().getType();
+			int i = 0;
+			if (TPMode.contains("ground_tp")) {
+				while (!safeMats.contains(mat.toString())) {
+					loc = getRandomSafeLocation(p, safeMats, TPMode, tryAttempts);
+					mat = loc.getBlock().getType();
+					i++;
+					if (i > tryAttempts) {
+						System.out.println("[WMC-RTP] Failed RTP " + plugin.getConfig().getInt("try-attempts")
+								+ " times, Unsafe Location, using default");
+						return null;
+					}
 				}
 			}
+			return loc;
+		} catch (Exception print) {
+			System.out.println("A generational issue caused random spawn to not work");
+			return null;
 		}
-		return loc;
 	}
 }

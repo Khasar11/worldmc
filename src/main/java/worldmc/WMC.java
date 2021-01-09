@@ -17,11 +17,11 @@ public class WMC extends JavaPlugin {
 	public FileConfiguration Config = getConfig();
 
 	public static WMC plugin;
-	
+
 	// Welcome reward player list
-	public Player toWelcome = null; 
+	public Player toWelcome = null;
 	public ArrayList<Player> welcomed = new ArrayList<>();
-	
+
 	@Override
 	public void onDisable() {
 		plugin = null;
@@ -55,7 +55,7 @@ public class WMC extends JavaPlugin {
 		if (getConfig().getBoolean("recipes.enabled")) {
 			RecipeRegister.RegisterRecipes();
 		}
-		
+
 		Initializers.initNBT();
 	}
 }

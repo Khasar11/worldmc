@@ -3,6 +3,7 @@ package main.java.worldmc.Listeners.Welcome;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +26,8 @@ public class EventPlayerChat implements Listener {
 			if (!plugin.welcomed.contains(p)) {
 				String m = event.getMessage();
 				String wMsg = plugin.getConfig().getString("welcome.message");
+				Float volume = (float) plugin.getConfig().getInt("welcome.volume"),
+						pitch = (float) plugin.getConfig().getInt("welcome.pitch");
 				m = m.replace("?", "").replace("!", "").replace(" ", "").toLowerCase();
 				if (m.contains(wMsg)) {
 					plugin.welcomed.add(p);
@@ -32,11 +35,15 @@ public class EventPlayerChat implements Listener {
 							plugin.getConfig().getStringList("welcome.reward-commands"));
 					int commandAmount = toExecute.size();
 					Bukkit.getScheduler().runTaskLater(plugin, () -> {
-						for (int i = 0; i < commandAmount; i++) {
-							Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
-									toExecute.get(i).replace("{USERNAME}", p.getName()));
+						if (!event.isCancelled()) {
+							for (int i = 0; i < commandAmount; i++) {
+								Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
+										toExecute.get(i).replace("{USERNAME}", p.getName()));
+							}
+							p.playSound(p.getLocation(), Sound.valueOf(plugin.getConfig().getString("welcome.sound")),
+									volume, pitch);
 						}
-					}, 1L);
+					}, 2L);
 				}
 			}
 		}

@@ -69,11 +69,12 @@
 					</relocations>
 				</configuration>
 			</plugin>
-
+			
 		</plugins>
 	</build>
 
 	<repositories>
+	
 		<repository>
 			<id>codemc-repo</id>
 			<url>https://repo.codemc.org/repository/maven-public/</url>
@@ -89,9 +90,11 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
+
 	</repositories>
 
 	<dependencies>
+	
 		<dependency>
 			<groupId>de.tr7zw</groupId>
 			<artifactId>item-nbt-api</artifactId>

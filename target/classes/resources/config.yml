@@ -2,7 +2,7 @@
 #   WMC-Main-Config   #
 #      by Uriang      #
 #=====================#
-# Discord:Khasar#1111 #
+# Discord:Khasar#2151 #
 #=====================#
 
 # Feature list:
@@ -12,6 +12,8 @@
 #   Recipe tweaking
 #   Silk touch spawners
 #   Welcome rewards
+#   Auto broadcast
+#   Tablist
 
 #=====================#
 #   WMC-Random-Spawn  #
@@ -234,6 +236,7 @@ spawners:
 #=====================#
 
 # Used to reward players that are nice and welcome players
+# All sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
 
 # {USERNAME} for username in commands
 
@@ -252,4 +255,41 @@ welcome:
     # Will automatically be forced to lower case and symbols will be removed
     message: 'welcome'
     
+    # What sound will be played to the player that welcomes
+    sound: 'BLOCK_NOTE_BLOCK_PLING'
+    pitch: 1.0
+    volume: 1.0
+    
+#=====================#
+
+#=====================#
+#  WMC-Auto-Broadcast #
+#=====================#
+
+ab:
+    enabled: true
+    time: 20 # In seconds
+    strings:
+        - '&3test1'
+        - '&etest2'
+        - '&btest3'
+        - '&atest4'
+        
+#=====================#
+
+#=====================#
+#    WMC-Tablist      #
+#=====================#
+
+# Variables:
+# Player related: {USERNAME}, {DISPLAYNAME}, {PREFIX}, {SUFFIX}
+# Other: {MAXPLAYERS}, {PLAYERS}
+# \n for newline
+
+tab:
+    enabled: true
+    header: 'tab\ntest'
+    footer: 'footer\ntest'
+    username: '{PREFIX}{USERNAME}'
+        
 #=====================#
