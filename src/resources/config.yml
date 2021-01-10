@@ -12,8 +12,6 @@
 #   Recipe tweaking
 #   Silk touch spawners
 #   Welcome rewards
-#   Auto broadcast
-#   Tablist
 
 #=====================#
 #   WMC-Random-Spawn  #
@@ -260,36 +258,4 @@ welcome:
     pitch: 1.0
     volume: 1.0
     
-#=====================#
-
-#=====================#
-#  WMC-Auto-Broadcast #
-#=====================#
-
-ab:
-    enabled: true
-    time: 20 # In seconds
-    strings:
-        - '&3test1'
-        - '&etest2'
-        - '&btest3'
-        - '&atest4'
-        
-#=====================#
-
-#=====================#
-#    WMC-Tablist      #
-#=====================#
-
-# Variables:
-# Player related: {USERNAME}, {DISPLAYNAME}, {PREFIX}, {SUFFIX}
-# Other: {MAXPLAYERS}, {PLAYERS}
-# \n for newline
-
-tab:
-    enabled: true
-    header: 'tab\ntest'
-    footer: 'footer\ntest'
-    username: '{PREFIX}{USERNAME}'
-        
 #=====================#

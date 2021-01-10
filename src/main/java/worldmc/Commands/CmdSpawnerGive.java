@@ -37,7 +37,7 @@ public class CmdSpawnerGive implements CommandExecutor {
 					entityName.replace("_", " ");
 					String dName = ChatColor.GREEN + entityName.substring(0, 1);
 					dName = dName + entityName.substring(1).toLowerCase() + " Spawner";
-					meta.setDisplayName(dName);
+					meta.setDisplayName(dName.replace("_", " "));
 					item.setItemMeta(meta);
 
 					NBTItem nbti = new NBTItem(item);
