@@ -37,8 +37,7 @@ public class EventSpawnerBreak implements Listener {
 		if (b.getType() == Material.SPAWNER) {
 			if (p.getGameMode() != GameMode.CREATIVE) {
 				CreatureSpawner cs = (CreatureSpawner) b.getState();
-				ItemStack ptool = InvHelper.getMainItem(p), 
-						  newItem = new ItemStack(Material.SPAWNER, 1);
+				ItemStack ptool = InvHelper.getMainItem(p), newItem = new ItemStack(Material.SPAWNER, 1);
 				if (plugin.getConfig().getBoolean("spawners.enabled")
 						&& ptool.containsEnchantment(Enchantment.SILK_TOUCH)) {
 					EntityType entity = cs.getSpawnedType();
@@ -62,11 +61,13 @@ public class EventSpawnerBreak implements Listener {
 							nbti = new NBTItem(newItem);
 							nbti.setString("wmc_spawn_type", entity.name());
 							newItem = nbti.getItem();
-							if (plugin.getConfig().getBoolean("spawners.place-spawner-in-inventory")
-									&& InvHelper.hasEmptySlot(p)) {
-								p.getInventory().addItem(newItem);
-							} else {
-								b.getWorld().dropItem(b.getLocation(), newItem);
+							if (!event.isCancelled()) {
+								if (plugin.getConfig().getBoolean("spawners.place-spawner-in-inventory")
+										&& InvHelper.hasEmptySlot(p)) {
+									p.getInventory().addItem(newItem);
+								} else {
+									b.getWorld().dropItem(b.getLocation(), newItem);
+								}
 							}
 						} else {
 							if (plugin.getConfig().getBoolean("spawners.delete-illegals")) {

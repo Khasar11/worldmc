@@ -12,6 +12,16 @@
 #   Recipe tweaking
 #   Silk touch spawners
 #   Welcome rewards
+#   Combat tag
+#   Player protection
+
+# {USERNAME} for username in commands
+
+# All spawn reasons: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/CreatureSpawnEvent.SpawnReason.html
+# All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
+# All tools / Materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+# All sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+# All damage causes: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
 
 #=====================#
 #   WMC-Random-Spawn  #
@@ -52,20 +62,20 @@ random-spawn:
     #      maps that arent pre-generated
     #
     
-    # Safe spawn materials, list at https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+    # Safe spawn materials
     safe-materials:
-        - GRASS
-        - DIRT
-        - GRASS_BLOCK
-        - RED_SAND
-        - SAND
-        - CLAY
-        - TERRACOTTA
-        - RED_TERRACOTTA
-        - ORANGE_TERRACOTTA
-        - COBBLESTONE
-        - COARSE_DIRT
-        - PODZOL
+        - 'GRASS'
+        - 'DIRT'
+        - 'GRASS_BLOCK'
+        - 'RED_SAND'
+        - 'SAND'
+        - 'CLAY'
+        - 'TERRACOTTA'
+        - 'RED_TERRACOTTA'
+        - 'ORANGE_TERRACOTTA'
+        - 'COBBLESTONE'
+        - 'COARSE_DIRT'
+        - 'PODZOL'
     
     # How many times should it try to find a suited location before failing?
     try-attempts: 100
@@ -77,8 +87,6 @@ random-spawn:
 #=====================#
 
 # Remove gold drops from mobs
-
-# All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
 
 no-gold-drops:
     # Main enable for no gold drops
@@ -97,8 +105,6 @@ no-gold-drops:
 
 # Removes entities ability to target players spawned meeting a criteria
 
-# All spawn reasons: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/CreatureSpawnEvent.SpawnReason.html
-# All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
 # Follow already layed out pattern
 # Gives the ability to tweak mob AI depending on their spawn reasons
 
@@ -108,25 +114,25 @@ no-ai:
     mobs:
         SKELETON:
             spawn-types:
-                - SPAWNER
+                - 'SPAWNER'
         BLAZE:
             spawn-types:
-                - SPAWNER
+                - 'SPAWNER'
         SPIDER:
             spawn-types:
-                - SPAWNER
+                - 'SPAWNER'
         PIG:
             spawn-types:
-                - SPAWNER
+                - 'SPAWNER'
         GUARDIAN:
             spawn-types:
-                - SPAWNER
+                - 'SPAWNER'
         ZOMBIE:
             spawn-types:
-                - SPAWNER
+                - 'SPAWNER'
         BLAZE:
             spawn-types:
-                - SPAWNER
+                - 'SPAWNER'
             
 #=====================#
 
@@ -150,8 +156,8 @@ recipes:
         # here which you'd like to disable,
         # if you put for example STICK, it will remove the stick recipe
     tweaked:
-        - CLOCK
-        - POWERED_RAIL
+        - 'CLOCK'
+        - 'POWERED_RAIL'
         
     # dark-prismarine: 8 prismarine with black dye in center makes 8
     add-dark-prismarine: true
@@ -175,21 +181,15 @@ recipes:
 
 # Silk spawners
 
-# All mobs can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
-# All tools / Materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
-
-# THIS REQUIRES NBTAPI RUNNING ON THE SERVER
-# https://www.spigotmc.org/resources/nbt-api.7939/
-
 spawners:
     # Main enable for spawners
     enabled: true
     
     # What tools can mine spawners with silk touch?
     allowed-tools:
-        - DIAMOND_PICKAXE
-        - NETHERITE_PICKAXE
-        - IRON_PICKAXE
+        - 'DIAMOND_PICKAXE'
+        - 'NETHERITE_PICKAXE'
+        - 'IRON_PICKAXE'
     
     # Should it delete all non legal spawners
     delete-illegals: true
@@ -217,15 +217,15 @@ spawners:
     
     # List of legal mob spawns
     legals:
-        - PIG
-        - SHEEP
-        - CHICKEN
-        - COW
-        - BLAZE
-        - ZOMBIE
-        - SKELETON
-        - SPIDER
-        - GUARDIAN
+        - 'PIG'
+        - 'SHEEP'
+        - 'CHICKEN'
+        - 'COW'
+        - 'BLAZE'
+        - 'ZOMBIE'
+        - 'SKELETON'
+        - 'SPIDER'
+        - 'GUARDIAN'
 
 #=====================#
 
@@ -234,9 +234,6 @@ spawners:
 #=====================#
 
 # Used to reward players that are nice and welcome players
-# All sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
-
-# {USERNAME} for username in commands
 
 welcome:
     # Main enable for welcome rewards
@@ -259,3 +256,73 @@ welcome:
     volume: 1.0
     
 #=====================#
+
+#=====================#
+#      WMC-Combat     #
+#=====================#
+
+combat:
+    # Main enable for combat tweaking
+    enabled: true
+    
+    # How long are users tagged for when hit
+    # by another player
+    combat-tag-time: 15 # In seconds
+    
+    # Should teleporting be disabled
+    # when combat tagged
+    tag-cancel-tp: true
+    
+    # Should combat loggers be killed?
+    kill-on-combat-log: true
+    
+    # Should any commands be executed on combat log
+    execute-commands: true
+    
+    # What commands?
+    combat-log-commands:
+        - 'wmcbroad &2&lWorld&6&lMC &8&l» &c{USERNAME} &fcombat logged and was punished!'        
+
+#=====================#
+
+#=====================#
+#    WMC-Protection   #
+#=====================#
+
+# enable-protection-for can be the following 
+# [ 'FIRST_JOIN', 'RESPAWN' ]
+        
+protection: 
+    # Main enable for player protection
+    enabled: true
+    
+    # How long are users protected for
+    protection-time: 1800 # In seconds
+    
+    # Who should get protected?
+    enable-protection-for:
+        - 'FIRST_JOIN'
+    
+    # When should it auto-disable?
+    disable-conditions:
+        enabled: false
+        # Easier aliases: [ SWORD, AXE ], checks any axe/sword
+        crafting:
+            - 'SWORD'
+            - 'AXE'
+        pickup:
+            - 'SWORD'
+            - 'AXE'
+    
+    # What damage causes should it prevent
+    prevented-causes:
+        - 'ENTITY_ATTACK'
+        - 'ENTITY_SWEEP_ATTACK'
+        - 'FIRE'
+        - 'FIRE_TICK'
+        - 'LAVA'
+        - 'PROJECTILE'
+        - 'STARVATION'
+        
+#=====================#
+        
