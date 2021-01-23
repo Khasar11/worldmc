@@ -1,6 +1,6 @@
 main: main.java.worldmc.WMC
 name: WorldMC-Main
-version: '2.4.1'
+version: '2.5'
 description: Does all the things
 author: Uriyang (Khasar#2151)
 website: https://www.worldmc.net/home

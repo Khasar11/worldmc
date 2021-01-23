@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import main.java.worldmc.Commands.*;
 import main.java.worldmc.Listeners.*;
+import main.java.worldmc.Listeners.CT.*;
 import main.java.worldmc.Listeners.Spawner.*;
 import main.java.worldmc.Listeners.Welcome.*;
 
@@ -21,11 +22,7 @@ public class WMC extends JavaPlugin {
 	// Welcome reward player list
 	public Player toWelcome = null;
 	public ArrayList<Player> welcomed = new ArrayList<>();
-
-	@Override
-	public void onDisable() {
-		plugin = null;
-	}
+	public ArrayList<Player> tagged = new ArrayList<>();
 
 	@Override
 	public void onEnable() {
@@ -33,7 +30,7 @@ public class WMC extends JavaPlugin {
 		this.saveDefaultConfig();
 		getConfig();
 
-		plugin = this;
+		plugin = this;		
 
 		// Register events
 		Bukkit.getPluginManager().registerEvents(new EventRandomSpawn(this), this);
@@ -46,7 +43,14 @@ public class WMC extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new EventPlayerChat(this), this);
 		Bukkit.getPluginManager().registerEvents(new EventPlayerQuit(this), this);
 		Bukkit.getPluginManager().registerEvents(new EventPlayerFirstJoin(this), this);
-
+		Bukkit.getPluginManager().registerEvents(new EventPlayerAttackPlayer(this), this);
+		Bukkit.getPluginManager().registerEvents(new EventPlayerTP(this), this);
+		Bukkit.getPluginManager().registerEvents(new EventPlayerCombatLog(this), this);
+		Bukkit.getPluginManager().registerEvents(new EventPlayerCommand(this), this);
+		
+		// Initialize NBTApi
+		Initializers.initNBT();
+		
 		// Register command
 		getCommand("wmcreload").setExecutor(new CmdReload(this));
 		getCommand("wmcgivespawner").setExecutor(new CmdSpawnerGive(this));
@@ -55,7 +59,5 @@ public class WMC extends JavaPlugin {
 		if (getConfig().getBoolean("recipes.enabled")) {
 			RecipeRegister.RegisterRecipes();
 		}
-
-		Initializers.initNBT();
 	}
 }

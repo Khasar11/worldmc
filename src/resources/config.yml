@@ -261,6 +261,8 @@ welcome:
 #      WMC-Combat     #
 #=====================#
 
+# Players with permission wmc.combattag.ignore will ignore combat tag
+
 combat:
     # Main enable for combat tweaking
     enabled: true
@@ -281,7 +283,16 @@ combat:
     
     # What commands?
     combat-log-commands:
-        - 'wmcbroad &2&lWorld&6&lMC &8&l» &c{USERNAME} &fcombat logged and was punished!'        
+        - 'wmcbroad &2&lWorld&6&lMC &8&l» &c{USERNAME} &fcombat logged and was punished!' 
+
+    # Enter combat message
+    tag-msg: '&aYou are now in combat'
+
+    # No longer in combat message
+    no-longer-in-combat-msg: '&aYou are no longer in combat'
+    
+    # Attempted to teleport message
+    teleport-attempt-msg: '&aYou can not teleport while in combat'
 
 #=====================#
 
@@ -320,7 +331,6 @@ protection:
         - 'ENTITY_SWEEP_ATTACK'
         - 'FIRE'
         - 'FIRE_TICK'
-        - 'LAVA'
         - 'PROJECTILE'
         - 'STARVATION'
         
