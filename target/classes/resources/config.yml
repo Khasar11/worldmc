@@ -22,6 +22,7 @@
 # All tools / Materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 # All sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
 # All damage causes: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
+# All teleport causes: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/player/PlayerTeleportEvent.TeleportCause.html
 
 #=====================#
 #   WMC-Random-Spawn  #
@@ -275,6 +276,11 @@ combat:
     # when combat tagged
     tag-cancel-tp: true
     
+    # What teleport causes should be excempt?
+    cancel-tp-excemptions:
+        - 'CHORUS_FRUIT'
+        - 'ENDER_PEARL'
+        
     # Should combat loggers be killed?
     kill-on-combat-log: true
     
@@ -308,22 +314,34 @@ protection:
     enabled: true
     
     # How long are users protected for
-    protection-time: 1800 # In seconds
-    
-    # Who should get protected?
-    enable-protection-for:
-        - 'FIRST_JOIN'
+    protection-time: 30 # In minutes
     
     # When should it auto-disable?
     disable-conditions:
         enabled: false
-        # Easier aliases: [ SWORD, AXE ], checks any axe/sword
         crafting:
             - 'SWORD'
             - 'AXE'
         pickup:
             - 'SWORD'
             - 'AXE'
+        # Should it remove when attacking another player
+        attack-player: false
+        
+    # Attack attempt message
+    attack-msg: '&fYou are currently protected, craft a weapon or use &a/unprotect &fto disable'
+    
+    # Protection disable message
+    prot-disable-msg: '&aYou are no longer protected from combat'
+    
+    # Reply when user /unprotect's but is not protected
+    plr-not-protected-msg: '&aYou are not protected'
+    
+    # Attacked player is protected msg
+    plr-protected-msg: '&aThis user is protected from combat'
+    
+    # Message sent to player on first join
+    begin-prot-msg: '&aYou are protected from combat for 30 minutes, use /unprotect to remove it'
     
     # What damage causes should it prevent
     prevented-causes:
@@ -333,6 +351,8 @@ protection:
         - 'FIRE_TICK'
         - 'PROJECTILE'
         - 'STARVATION'
+        - 'BLOCK_EXPLOSION'
+        - 'ENTITY_EXPLOSION'
         
 #=====================#
         

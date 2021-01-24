@@ -17,3 +17,6 @@ commands:
    permission: wmc.givespawner
    permission-message: No permission
    usage: /<command> (player) (type) [<amount>]
+  unprotect:
+   description: Unprotect yourself
+   usage: /<command>
