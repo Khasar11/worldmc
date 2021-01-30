@@ -36,8 +36,7 @@ public class EventSpawnerPlace implements Listener {
 				ItemStack item = event.getItemInHand();
 				NBTItem nbti = new NBTItem(item);
 				String mobType = nbti.getString("wmc_spawn_type");
-				ArrayList<String> legals = new ArrayList<String>(
-						plugin.getConfig().getStringList("spawners.legals"));
+				ArrayList<String> legals = new ArrayList<String>(plugin.getConfig().getStringList("spawners.legals"));
 				if (mobType != "")
 					cs.setSpawnedType(EntityType.valueOf(mobType));
 				else

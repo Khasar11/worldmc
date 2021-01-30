@@ -29,13 +29,13 @@ public class EventSpawnerSpawn implements Listener {
 				if (!legals.contains(e.toString())) {
 					if (plugin.getConfig().getBoolean("spawners.delete-illegals")) {
 						try {
-						event.getSpawner().getBlock().setType(Material.AIR);
-						event.getEntity().remove();
-						} catch (Exception ignore) { }
+							event.getSpawner().getBlock().setType(Material.AIR);
+							event.getEntity().remove();
+						} catch (Exception ignore) {
+						}
 					}
 				}
 			}
 		}
 	}
-
 }

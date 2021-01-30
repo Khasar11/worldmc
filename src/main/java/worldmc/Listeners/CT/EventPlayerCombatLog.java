@@ -24,7 +24,8 @@ public class EventPlayerCombatLog implements Listener {
 			Player p = event.getPlayer();
 			if (plugin.tagged.contains(p)) {
 				if (plugin.getConfig().getBoolean("combat.kill-on-combat-log")) {
-					if (plugin.isEnabled()) p.setHealth(0.0);
+					if (plugin.isEnabled())
+						p.setHealth(0.0);
 				}
 				if (plugin.getConfig().getBoolean("combat.execute-commands")) {
 					ArrayList<String> cmds = new ArrayList<>(

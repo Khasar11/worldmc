@@ -16,7 +16,7 @@ public class CmdReload implements CommandExecutor {
 	}
 
 	// Simple reload command
-	
+
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
 		if (commandSender.hasPermission("wmc.reload")) {

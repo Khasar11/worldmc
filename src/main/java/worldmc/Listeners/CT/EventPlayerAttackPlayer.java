@@ -40,6 +40,10 @@ public class EventPlayerAttackPlayer implements Listener {
 				p.sendMessage(
 						ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("combat.tag-msg")));
 			plugin.tagged.add(p);
+			if (plugin.getConfig().getBoolean("combat.disable-flight")) {
+				p.setFlying(false);
+				p.setAllowFlight(false);
+			}
 
 			Bukkit.getScheduler().runTaskLater(plugin, () -> {
 				plugin.tagged.remove(p);

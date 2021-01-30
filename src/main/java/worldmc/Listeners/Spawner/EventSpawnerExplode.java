@@ -17,7 +17,7 @@ public class EventSpawnerExplode implements Listener {
 	}
 
 	// Cancel explosion if it would explode a spawner
-	
+
 	@EventHandler
 	public void onEntityExplodeEvent(EntityExplodeEvent event) {
 		if (plugin.getConfig().getBoolean("spawners.enabled")

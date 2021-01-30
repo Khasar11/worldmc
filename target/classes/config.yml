@@ -276,11 +276,21 @@ combat:
     # when combat tagged
     tag-cancel-tp: true
     
+    # Should engaging combat disable flight?
+    disable-flight: true
+    
     # What teleport causes should be excempt?
     cancel-tp-excemptions:
         - 'CHORUS_FRUIT'
         - 'ENDER_PEARL'
         
+    # Disabled commands while in combat
+    disabled-commands:
+        - '/examplecommand'
+        
+    # Message sent to player when cancelled due to disabled command
+    denied-command-msg: '&aThis command is disabled in combat'
+    
     # Should combat loggers be killed?
     kill-on-combat-log: true
     

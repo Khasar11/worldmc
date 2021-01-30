@@ -24,7 +24,7 @@ public class EventPlayerTP implements Listener {
 				if (!plugin.getConfig().getStringList("combat.cancel-tp-excemptions")
 						.contains(event.getCause().toString())) {
 					event.setCancelled(true);
-				}
+				} else return;
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&',
 						plugin.getConfig().getString("combat.teleport-attempt-msg")));
 			}

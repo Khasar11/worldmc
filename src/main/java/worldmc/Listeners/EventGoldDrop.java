@@ -20,10 +20,11 @@ public class EventGoldDrop implements Listener {
 	@EventHandler
 	public void onDeath(EntityDeathEvent event) {
 		if (plugin.getConfig().getBoolean("no-gold-drops.enabled")) {
-			if (!plugin.getConfig().getStringList("no-gold-drops.entities").contains(event.getEntity().getType().toString())) {
+			if (!plugin.getConfig().getStringList("no-gold-drops.entities")
+					.contains(event.getEntity().getType().toString())) {
 				return;
 			}
-			
+
 			for (int i = 0; i < event.getDrops().size(); i++) {
 				if (event.getDrops().get(i).getType().equals(Material.GOLD_INGOT)
 						|| event.getDrops().get(i).getType().equals(Material.GOLD_NUGGET)
