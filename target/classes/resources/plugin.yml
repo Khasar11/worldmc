@@ -20,3 +20,6 @@ commands:
   unprotect:
    description: Unprotect yourself
    usage: /<command>
+  playtime:
+   description: Check playtime
+   usage: /<command> (player)

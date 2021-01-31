@@ -365,4 +365,14 @@ protection:
         - 'ENTITY_EXPLOSION'
         
 #=====================#
+
+#=====================#
+#    WMC-Playtime     #
+#=====================#
+
+playtime:
+    format: '&aYour playtime is {D}d:{H}h:{M}m:{S}s'
+    format-other: "&a{USERNAME}'s playtime is {D}d:{H}h:{M}m:{S}s"
+    
+#=====================#
         

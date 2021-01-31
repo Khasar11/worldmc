@@ -64,6 +64,7 @@ public class WMC extends JavaPlugin {
 		getCommand("wmcreload").setExecutor(new CmdReload(this));
 		getCommand("wmcgivespawner").setExecutor(new CmdSpawnerGive(this));
 		getCommand("unprotect").setExecutor(new CmdUnprotect(this));
+		getCommand("playtime").setExecutor(new CmdPlaytime(this));
 
 		// Register all recipes
 		if (getConfig().getBoolean("recipes.enabled")) {
