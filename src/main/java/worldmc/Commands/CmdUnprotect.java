@@ -5,7 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import main.java.worldmc.WMC;
-import net.md_5.bungee.api.ChatColor;
 
 public class CmdUnprotect implements CommandExecutor {
 
@@ -16,14 +15,12 @@ public class CmdUnprotect implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String t, String[] args) {
-		if (plugin.protectedPlayers.contains(sender)) {
-			plugin.protectedPlayers.remove(sender);
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					plugin.getConfig().getString("protection.prot-disable-msg")));
+	public boolean onCommand(CommandSender s, Command cmd, String t, String[] args) {
+		if (plugin.protectedPlayers.contains(s)) {
+			plugin.protectedPlayers.remove(s);
+			s.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.prot-disable-msg")));
 		} else
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					plugin.getConfig().getString("protection.plr-not-protected-msg")));
+			s.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.plr-not-protected-msg")));
 		return true;
 	}
 

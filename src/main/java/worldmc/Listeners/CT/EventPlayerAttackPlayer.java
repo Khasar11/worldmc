@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import main.java.worldmc.WMC;
-import net.md_5.bungee.api.ChatColor;
 
 public class EventPlayerAttackPlayer implements Listener {
 
@@ -37,8 +36,7 @@ public class EventPlayerAttackPlayer implements Listener {
 	public void handleTags(Player p) {
 		if (!p.hasPermission("wmc.combattag.ignore")) {
 			if (!plugin.tagged.contains(p))
-				p.sendMessage(
-						ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("combat.tag-msg")));
+				p.sendMessage(WMC.formatColors(plugin.getConfig().getString("combat.tag-msg")));
 			plugin.tagged.add(p);
 			if (plugin.getConfig().getBoolean("combat.disable-flight")) {
 				p.setFlying(false);
@@ -48,8 +46,7 @@ public class EventPlayerAttackPlayer implements Listener {
 			Bukkit.getScheduler().runTaskLater(plugin, () -> {
 				plugin.tagged.remove(p);
 				if (!plugin.tagged.contains(p)) {
-					p.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							plugin.getConfig().getString("combat.no-longer-in-combat-msg")));
+					p.sendMessage(WMC.formatColors(plugin.getConfig().getString("combat.no-longer-in-combat-msg")));
 				}
 			}, plugin.getConfig().getInt("combat.combat-tag-time") * 20);
 		}

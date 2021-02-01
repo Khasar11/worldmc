@@ -1,15 +1,14 @@
 package main.java.worldmc.Listeners.Protection;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import main.java.worldmc.WMC;
-import net.md_5.bungee.api.ChatColor;
 
 public class EventBeginProtection implements Listener {
 
@@ -26,26 +25,31 @@ public class EventBeginProtection implements Listener {
 			if (!p.hasPlayedBefore()) {
 				plugin.protectedPlayers.add(p);
 				Bukkit.getScheduler().runTaskLater(plugin, () -> {
-					p.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							plugin.getConfig().getString("protection.begin-prot-msg")));
+					p.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.begin-prot-msg")));
 				}, 20L);
 			}
 			new BukkitRunnable() {
+				int mpl = 0;
+
 				@Override
 				public void run() {
 					if (plugin.protectedPlayers.contains(p)) {
-						if ((p.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20) / 60 > plugin.getConfig()
-								.getInt("protection.protection-time")) {
+						if (mpl > plugin.getConfig().getInt("protection.protection-time")) {
 							plugin.protectedPlayers.remove(p);
-							p.sendMessage(ChatColor.translateAlternateColorCodes('&',
-									plugin.getConfig().getString("protection.prot-disable-msg")));
+							p.sendMessage(
+									WMC.formatColors(plugin.getConfig().getString("protection.prot-disable-msg")));
 						}
-					} else {
-						cancel();
+						mpl++;
 					}
-
 				}
 			}.runTaskTimer(plugin, 0L, 1200L);
 		}
+	}
+
+	@EventHandler
+	public void onRespawn(PlayerRespawnEvent event) {
+		Player p = event.getPlayer();
+		plugin.protectedPlayers.add(p);
+		p.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.begin-prot-msg")));
 	}
 }

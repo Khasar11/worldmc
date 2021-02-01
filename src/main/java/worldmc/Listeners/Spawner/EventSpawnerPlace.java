@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import main.java.worldmc.WMC;
-import net.md_5.bungee.api.ChatColor;
 
 public class EventSpawnerPlace implements Listener {
 
@@ -43,7 +42,7 @@ public class EventSpawnerPlace implements Listener {
 					cs.setSpawnedType(EntityType.PIG);
 				if (!legals.contains(mobType) && mobType != "") {
 					if (plugin.getConfig().getBoolean("spawners.prevent-illegal-placement")) {
-						p.sendMessage(ChatColor.YELLOW + "Illegal spawner placed, please contact staff");
+						p.sendMessage(WMC.formatColors(plugin.getConfig().getString("spawners.illegal-placed")));
 						event.setCancelled(true);
 						return;
 					}
@@ -51,11 +50,12 @@ public class EventSpawnerPlace implements Listener {
 				cs.update();
 				if (plugin.getConfig().getBoolean("spawners.notify-when-placed")) {
 					plugin.getServer().broadcast(
-							ChatColor.YELLOW + "[WMC-Spawners] " + p + " Just placed a " + mobType + " Spawner",
+							WMC.formatColors(plugin.getConfig().getString("spawners.spawner-place-notify")
+									.replace("{USERNAME}", p.getName().replace("{TYPE}", mobType.toString()))),
 							"wmc.notifyspawners");
 				}
 			} else {
-				p.sendMessage(ChatColor.GREEN + "Spawners are currently disabled");
+				p.sendMessage(WMC.formatColors(plugin.getConfig().getString("spawners.spawner-disabled")));
 				event.setCancelled(true);
 			}
 		}

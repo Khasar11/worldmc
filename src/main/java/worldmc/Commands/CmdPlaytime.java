@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import main.java.worldmc.WMC;
-import net.md_5.bungee.api.ChatColor;
 
 public class CmdPlaytime implements CommandExecutor {
 
@@ -27,7 +26,7 @@ public class CmdPlaytime implements CommandExecutor {
 				if (other != null) {
 					p.sendMessage(ticksToFormat(other.getStatistic(Statistic.PLAY_ONE_MINUTE), p, other));
 				} else {
-					p.sendMessage(ChatColor.GREEN + "Wrong input");
+					p.sendMessage(WMC.formatColors(plugin.getConfig().getString("playtime.wrong-input")));
 				}
 			} else {
 				p.sendMessage(ticksToFormat(p.getStatistic(Statistic.PLAY_ONE_MINUTE), p, p));
@@ -47,7 +46,7 @@ public class CmdPlaytime implements CommandExecutor {
 		if (sender != other)
 			format = plugin.getConfig().getString("playtime.format-other").replace("{USERNAME}", other.getName());
 		format = format.replace("{D}", d + "").replace("{H}", h + "").replace("{M}", m + "").replace("{S}", s + "");
-		return ChatColor.translateAlternateColorCodes('&', format);
+		return WMC.formatColors(format);
 	}
 
 }

@@ -74,18 +74,18 @@ public class EventSpawnerBreak implements Listener {
 							if (plugin.getConfig().getBoolean("spawners.delete-illegals")) {
 								if (plugin.getConfig().getBoolean("spawners.reward-breaking-illegals")) {
 									p.giveExp(plugin.getConfig().getInt("spawners.reward-amount"));
-									p.sendMessage(ChatColor.GREEN + "Illegal spawner mined, you were compensated");
+									p.sendMessage(WMC.formatColors(plugin.getConfig().getString("spawners.illegal-mined-compensated")));
 								}
-								p.sendMessage(ChatColor.GREEN + "Illegal spawner mined, it was destroyed");
+								p.sendMessage(WMC.formatColors(plugin.getConfig().getString("spawners.illegal-mined-destroyed")));
 							} else {
 								event.setCancelled(true);
-								p.sendMessage(ChatColor.GREEN + "Illegal spawner mined, cancelled breaking");
+								p.sendMessage(WMC.formatColors(plugin.getConfig().getString("spawners.illegal-mined-cancelled")));
 							}
 						}
 						return;
 					}
 				}
-				p.sendMessage(ChatColor.GREEN + "Illegal tool used");
+				p.sendMessage(WMC.formatColors(plugin.getConfig().getString("spawners.illegal-tool")));
 				event.setCancelled(true);
 			}
 		}

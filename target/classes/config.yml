@@ -227,6 +227,22 @@ spawners:
         - 'SKELETON'
         - 'SPIDER'
         - 'GUARDIAN'
+    
+    # Messages
+    illegal-mined-cancelled: '&aIllegal spawner mined, cancelled breaking'
+    
+    illegal-mined-compensated: '&aIllegal spawner mined, you were compensated'
+    
+    illegal-mined-destroyed: '&aIllegal spawner mined, it was destroyed'
+    
+    illegal-placed: '&eIllegal spawner placed, please contact staff'
+    
+    illegal-tool: 'Illegal tool used'
+    
+    # {TYPE} can be used here to determine spawner type
+    spawner-place-notify: '&e[WMC-Spawners] {USERNAME} just placed a {TYPE} spawner'
+    
+    spawner-disabled: '&aSpawners are currently disabled'
 
 #=====================#
 
@@ -373,6 +389,7 @@ protection:
 playtime:
     format: '&aYour playtime is {D}d:{H}h:{M}m:{S}s'
     format-other: "&a{USERNAME}'s playtime is {D}d:{H}h:{M}m:{S}s"
+    wrong-input: '&cWrong input or player is offline'
     
 #=====================#
         

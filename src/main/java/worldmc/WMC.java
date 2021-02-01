@@ -13,6 +13,7 @@ import main.java.worldmc.Listeners.CT.*;
 import main.java.worldmc.Listeners.Protection.*;
 import main.java.worldmc.Listeners.Spawner.*;
 import main.java.worldmc.Listeners.Welcome.*;
+import net.md_5.bungee.api.ChatColor;
 
 public class WMC extends JavaPlugin {
 
@@ -25,6 +26,10 @@ public class WMC extends JavaPlugin {
 	public ArrayList<Player> welcomed = new ArrayList<>();
 	public ArrayList<Player> tagged = new ArrayList<>();
 	public ArrayList<Player> protectedPlayers = new ArrayList<>();
+
+	public static String formatColors(String t) {
+		return ChatColor.translateAlternateColorCodes('&', t);
+	}
 
 	@Override
 	public void onEnable() {
@@ -71,4 +76,5 @@ public class WMC extends JavaPlugin {
 			RecipeRegister.RegisterRecipes();
 		}
 	}
+
 }
