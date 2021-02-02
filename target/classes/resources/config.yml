@@ -339,8 +339,11 @@ protection:
     # Main enable for player protection
     enabled: true
     
-    # How long are users protected for
+    # How long are users protected for after first join protection
     protection-time: 30 # In minutes
+    
+    # How long should respawn protection be?
+    respawn-prot-time: 10 # In seconds
     
     # When should it auto-disable?
     disable-conditions:
@@ -367,7 +370,10 @@ protection:
     plr-protected-msg: '&aThis user is protected from combat'
     
     # Message sent to player on first join
-    begin-prot-msg: '&aYou are protected from combat for 30 minutes, use /unprotect to remove it'
+    begin-first-join-prot-msg: '&aYou are protected from combat for 30 minutes, use /unprotect to remove it'
+    
+    # Message sent after respawn
+    begin-respawn-prot-msg: '&aYou are protected from combat for 10 seconds, use /unprotect to remove it'
     
     # What damage causes should it prevent
     prevented-causes:

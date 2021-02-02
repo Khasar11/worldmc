@@ -25,7 +25,7 @@ public class EventBeginProtection implements Listener {
 			if (!p.hasPlayedBefore()) {
 				plugin.protectedPlayers.add(p);
 				Bukkit.getScheduler().runTaskLater(plugin, () -> {
-					p.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.begin-prot-msg")));
+					p.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.begin-first-join-prot-msg")));
 				}, 20L);
 			}
 			new BukkitRunnable() {
@@ -34,10 +34,8 @@ public class EventBeginProtection implements Listener {
 				@Override
 				public void run() {
 					if (plugin.protectedPlayers.contains(p)) {
-						if (mpl > plugin.getConfig().getInt("protection.protection-time")) {
-							plugin.protectedPlayers.remove(p);
-							p.sendMessage(
-									WMC.formatColors(plugin.getConfig().getString("protection.prot-disable-msg")));
+						if (mpl >= plugin.getConfig().getInt("protection.protection-time")) {
+							endProt(p);
 						}
 						mpl++;
 					}
@@ -50,6 +48,14 @@ public class EventBeginProtection implements Listener {
 	public void onRespawn(PlayerRespawnEvent event) {
 		Player p = event.getPlayer();
 		plugin.protectedPlayers.add(p);
-		p.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.begin-prot-msg")));
+		p.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.begin-respawn-prot-msg")));
+		Bukkit.getScheduler().runTaskLater(plugin, () -> {
+			endProt(p);
+		}, plugin.getConfig().getInt("protection.respawn-prot-time") * 20);
+	}
+
+	public void endProt(Player p) {
+		plugin.protectedPlayers.remove(p);
+		p.sendMessage(WMC.formatColors(plugin.getConfig().getString("protection.prot-disable-msg")));
 	}
 }
