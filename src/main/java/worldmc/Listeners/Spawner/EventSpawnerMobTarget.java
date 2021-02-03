@@ -1,6 +1,7 @@
 package main.java.worldmc.Listeners.Spawner;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -22,13 +23,15 @@ public class EventSpawnerMobTarget implements Listener {
 
 	@EventHandler
 	public void onEntityTarget(EntityTargetLivingEntityEvent event) {
-		if (plugin.getConfig().getBoolean("no-ai.enabled")) {
-			Entity entity = event.getEntity();
-			NBTEntity nbtent = new NBTEntity(entity);
-			String spawnRsn = nbtent.getString("Paper.SpawnReason");
-			SpawnReason spawnReason = SpawnReason.valueOf(spawnRsn);
-			if (spawnMethodIsDisabled(entity, spawnReason)) {
-				event.setCancelled(true);
+		if (event.getTarget() instanceof Player) {
+			if (plugin.getConfig().getBoolean("no-ai.enabled")) {
+				Entity entity = event.getEntity();
+				NBTEntity nbtent = new NBTEntity(entity);
+				String spawnRsn = nbtent.getString("Paper.SpawnReason");
+				SpawnReason spawnReason = SpawnReason.valueOf(spawnRsn);
+				if (spawnMethodIsDisabled(entity, spawnReason)) {
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
